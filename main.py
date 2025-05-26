@@ -60,6 +60,9 @@ class ToDoListApp:
         save = tk.Button(frame, text="Save", command=self.save_item)
         save.grid(column=2, row=6, sticky=E)
 
+        for child in frame.winfo_children():
+            child.grid_configure(padx=10, pady=5)
+
     def save_item(self):
         new_item = ToDoItem(self.name.get(), self.description.get())
         self.to_do_items.append(new_item)
