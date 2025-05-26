@@ -1,6 +1,11 @@
 from tkinter import * 
 import tkinter as tk
 
+class ToDoItem:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
 class ToDoListApp:
     def __init__(self, root):
         root.title("To Do List")
@@ -10,6 +15,14 @@ class ToDoListApp:
         #weight 1 means that the frame will expand to fill the available space
         root.columnconfigure(1, weight=1)
         root.rowconfigure(1, weight=1)
+
+        self.to_do_items = [
+            ToDoItem("Buy groceries", "Milk, Bread, Eggs"),
+            ToDoItem("Clean the house", "Living room, Kitchen, Bathroom"),
+            ToDoItem("Finish project", "Due next week"),
+            ToDoItem("Call mom", "Check in on her"),
+            ToDoItem("Walk the dog", "30 minutes in the park")
+        ]
 
         self.label_text = StringVar()
         label = Label(frame, text="Some label text", textvariable=self.label_text)
