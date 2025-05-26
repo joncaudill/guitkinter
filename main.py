@@ -1,52 +1,37 @@
 from tkinter import * 
 import tkinter as tk
 
-class MyApp:
+class ToDoListApp:
     def __init__(self, root):
-        root.title("My app")
-        root.geometry("500x400")
-        root.maxsize(1000, 800)
+        root.title("To Do List")
 
-        frame = Frame(root, width=200, height=100, borderwidth=2, relief="sunken")
-        frame.place(x=0, y=0)
+        frame = Frame(root, borderwidth=2, relief="sunken")
+        frame.grid(column=1, row=1, sticky=(N, S, E, W))
+        #weight 1 means that the frame will expand to fill the available space
+        root.columnconfigure(1, weight=1)
+        root.rowconfigure(1, weight=1)
 
         self.label_text = StringVar()
-        label = Label(root, textvariable=self.label_text, font=("Arial", 24))
-        #self.label_text.set("Hello, World!")
-        #label.pack(side=LEFT, padx=10, pady=5)
-        #label.grid(column=1, row=1)
-        '''label2 = Label(root, text="This is a simple Tkinter app.", 
-                       font=("Arial", 16), bg="lightblue")
-        label2.pack(side=LEFT)'''
+        label = Label(frame, text="Some label text", textvariable=self.label_text)
+        label.pack()
 
-        #label["text"] = "New label text"
-        #label["bg"] = "red"
 
-        label.configure(text="New label text", bg="red")
+        label.configure(font=("Courier", 44), text="New label text")
 
         self.entry_text = StringVar()
-        entry = Entry(root, textvariable=self.entry_text)
-        #entry.pack(side=LEFT)
-        #entry.place(x=100, y=50)
-        #entry.grid(column=3, row=1)
-        #entry_text.set("Default text")
-        #entry_text.get()
+        entry = Entry(frame, textvariable=self.entry_text)
+        entry.pack()
 
-        #label["textvariable"] = entry_text
 
-        button = Button(root, text="Click me!", command=self.press_button )
-        #button.pack(side=LEFT)
-        #button.grid(column=1, row=2, sticky=(S,E,W))
-        #button.place(x=0, y=0)
-        #button.configure(width=10, height=2, font=("Courier", 40))
+        button = Button(frame, text="Button text", command=self.press_button)
+        button.pack()
 
-        self.list_item_strings = ["Item 1", "Item 2", "Item 3"]
-        self.list_items = StringVar(value=self.list_item_strings)
-        listbox = Listbox(root, listvariable=self.list_items)
+        self.list_item_strings = ["Hey", "Hi", "Hello", "Howdy", "Greetings"]
+        list_items = StringVar(value=self.list_item_strings)
+        listbox = Listbox(frame, listvariable=list_items)
         listbox["height"] = 3
-        #listbox.pack(side=tk.LEFT, padx=40, pady=20)
-        #listbox.grid(column=2, row=2)
-        listbox.bind("<<ListboxSelect>>", lambda event: self.select_item(listbox.curselection()))
+        listbox.bind("<<ListboxSelect>>", lambda s: self.select_item(listbox.curselection()))
+        listbox.pack()
         #can also just past the first item of the tuple
         #listbox.bind("<<ListboxSelect>>", lambda event: self.select_item(listbox.curselection()[0]))
 
@@ -63,5 +48,5 @@ class MyApp:
 
 
 root = Tk()
-MyApp(root)
+ToDoListApp(root)
 root.mainloop()
